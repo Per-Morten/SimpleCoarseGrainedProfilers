@@ -19,7 +19,7 @@ Currently, the profilers support translating the data to Chrome Tracing events. 
 See the following example on how to generate such a file in C#.
 
 ```csharp
-var profiler = new Profiler();
+var profiler = new SCGP.Profiler();
 for (int i = 0; i < 100; i++)
 {
     profiler.BeginSample($"Sample {i}");
@@ -35,7 +35,7 @@ for (int i = 0; i < 100; i++)
     profiler.EndSample();
 }
 
-var events = Profiler.ToChromeTracingEvents(profiler);
+var events = SCGP.Profiler.ToChromeTracingEvents(profiler);
 var sb = new StringBuilder();
 sb.Append("[");
 for (int i = 0; i < events.Count; i++)
