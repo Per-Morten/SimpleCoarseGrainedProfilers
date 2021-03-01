@@ -18,6 +18,7 @@ Additionally, there is a considerable amount of overhead from the profiler when 
 Currently, the profilers support translating the data to Chrome Tracing events. These can be viewed in any Google Chrome browser by going to chrome://tracing and loading the file containing the trace events.
 See the following example on how to generate such a file in C#.
 
+
 ```csharp
 var profiler = new SCGP.Profiler();
 for (int i = 0; i < 100; i++)
@@ -36,14 +37,6 @@ for (int i = 0; i < 100; i++)
 }
 
 var events = SCGP.Profiler.ToChromeTracingEvents(profiler);
-var sb = new StringBuilder();
-sb.Append("[");
-for (int i = 0; i < events.Count; i++)
-{
-    sb.Append(events[i]);
-    if (i != events.Count - 1)
-        sb.Append(",");
-}
-sb.Append("]");
-System.IO.File.WriteAllText("TraceGrowData.json", sb.ToString());
+var json = System.Text.Json.JsonSerializer.Serialize(events);
+System.IO.File.WriteAllText("TraceGrowData.json", json);
 ```
